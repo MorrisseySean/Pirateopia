@@ -9,18 +9,19 @@ import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.Color;
+import java.util.HashSet;
 
 /**
  *
  * @author Morro
  */
 public class Game extends Canvas implements Runnable{
-    public static final int WIDTH = 1080, HEIGHT = WIDTH /12 * 9;
+    public static final int WIDTH = 1080, HEIGHT = WIDTH /12 * 9, RATIO = WIDTH/12;
     private Thread mainThread;
     private boolean isRunning = false;
     private Handler handler;
     private HUD hud;
-    private Player player;
+    public Island currentIsland;
     public Game(){
         /// Initialize handler to control gameobjects
         handler = new Handler();
@@ -33,11 +34,15 @@ public class Game extends Canvas implements Runnable{
         /// Initialise the game window
         new Window(WIDTH, HEIGHT, "League Of Legends Manager", this);        
         
-        /// Add a new player to the handler
-        handler.addObject(new Player(WIDTH/2, HEIGHT/2, ID.Player));
+        ///Add an island
+        currentIsland = new Island(0, 0, ID.Island);
+        handler.addObject(currentIsland);
+        handler.setCurrentIsland(currentIsland);
+
         
-        /// Add an enemy
-        handler.addObject(new BaseEnemy(WIDTH/3, HEIGHT/3, ID.Enemy));
+        /// Add a new player to the handler
+        handler.addObject(new Player(WIDTH/2, HEIGHT/2, ID.Player, handler));
+        
     }
     
     public synchronized void start(){
@@ -117,6 +122,16 @@ public class Game extends Canvas implements Runnable{
         else{
             return var;
         }
+    }
+    
+    public static boolean checkBoxCollision(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2){
+        if(x1 > x2 + w2 ||
+                x1 + w1 < x2 ||
+                y1 > y2 + h2 ||
+                y1 + h1 < y2){
+            return false;
+        }
+        return true;
     }
     
 }

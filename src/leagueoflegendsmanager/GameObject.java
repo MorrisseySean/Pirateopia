@@ -13,13 +13,15 @@ import java.awt.Graphics;
  */
 public abstract class GameObject {
     
-    protected int x, y;
+    protected int x, y, w, h;
     protected ID id;
     protected int velX, velY;
     
-    public GameObject(int x, int y, ID id){
+    public GameObject(int x, int y, int w, int h, ID id){
         this.x = x;
         this.y = y;
+        this.w = w;
+        this.h = h;
         this.id = id;
     }
     

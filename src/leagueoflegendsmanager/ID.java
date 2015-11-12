@@ -12,5 +12,7 @@ package leagueoflegendsmanager;
 public enum ID {
     
     Player(),
-    Enemy();
+    Enemy(),
+    Island(),
+    Tile();
 }

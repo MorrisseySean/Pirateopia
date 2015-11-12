@@ -9,7 +9,7 @@ import java.awt.Graphics;
 
 public class BaseEnemy extends GameObject {
     public BaseEnemy(int x, int y, ID id){
-        super(x, y, id);
+        super(x, y, Game.RATIO / 4, Game.RATIO / 4, id);
         velX = 5;
         velY = 5;
     }

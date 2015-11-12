@@ -8,13 +8,10 @@ package leagueoflegendsmanager;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
-/**
- *
- * @author Morro
- */
 public class Handler {
     // A list of all objects in the game
     LinkedList<GameObject> objects = new LinkedList<GameObject>();
+    Island currentIsland;
     
     // Loops through all game objects and their update method
     public void tick(){
@@ -41,4 +38,18 @@ public class Handler {
     public void remove(GameObject object){
         objects.remove(object);
     }
+    
+    public void setCurrentIsland(Island isl){
+        currentIsland = isl;
+    }
+    
+    public Island getCurrentIsland(){
+        try{
+            return currentIsland;
+        }catch(Exception e){
+            System.out.println("Error: currentIsland not found");
+            return null;
+        }
+        
+    }    
 }
