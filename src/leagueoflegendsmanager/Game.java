@@ -38,11 +38,11 @@ public class Game extends Canvas implements Runnable{
         currentIsland = new Island(0, 0, ID.Island);
         handler.addObject(currentIsland);
         handler.setCurrentIsland(currentIsland);
-
         
         /// Add a new player to the handler
-        handler.addObject(new Player(WIDTH/2, HEIGHT/2, ID.Player, handler));
+        handler.addObject(new Player(WIDTH/2, HEIGHT/2, ID.Player, handler));;
         
+        handler.addObject(new BasicShip((4 * RATIO) - (RATIO / 3) - 5, (3 * RATIO) - (RATIO/2) - 5, RATIO/3, RATIO/2, ID.Ship));
     }
     
     public synchronized void start(){
@@ -124,7 +124,7 @@ public class Game extends Canvas implements Runnable{
         }
     }
     
-    public static boolean checkBoxCollision(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2){
+    public static boolean checkBoxCollision(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2){        
         if(x1 > x2 + w2 ||
                 x1 + w1 < x2 ||
                 y1 > y2 + h2 ||
@@ -132,6 +132,5 @@ public class Game extends Canvas implements Runnable{
             return false;
         }
         return true;
-    }
-    
+    }    
 }

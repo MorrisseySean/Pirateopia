@@ -13,6 +13,7 @@ public enum ID {
     
     Player(),
     Enemy(),
+    Ship(),
     Island(),
     Tile();
 }
