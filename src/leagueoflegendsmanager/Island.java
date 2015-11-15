@@ -6,6 +6,7 @@ package leagueoflegendsmanager;
 
 import java.awt.Graphics;
 import java.util.LinkedList;
+import java.util.Random;
 
 /// Island class controls generation of upkeep of Islands
 public class Island extends GameObject{
@@ -21,16 +22,8 @@ public class Island extends GameObject{
         xCoord = x;
         yCoord = y;
         
-        /// Manually generate the island, this will be changed in later updates
-        int map[][] = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0},
-                {0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0},
-                {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0},
-                {0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0},
-                {0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0},
-                {0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+        /// Generate the island, this will be changed in later updates                
+        int map[][] = GenerateIsland();
         
         /// Loop through the map and place a ground tile for each instance of 1
         for(int i = 0; i < map.length; i++){
@@ -42,6 +35,25 @@ public class Island extends GameObject{
         } /// End outer for loop
     } ///End Method  
     
+    public int[][] GenerateIsland(){
+        int map[][] = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};       
+        
+        Random r = new Random(System.currentTimeMillis());
+        for(int i = 2; i < map.length - 2; i++){
+            for(int j = 2; j < map[i].length - 2; j++){
+                map[i][j] = (int)Math.floor(r.nextDouble() + 0.5);
+            }
+        }
+        return map;
+    }
     public void tick(){
         
     }

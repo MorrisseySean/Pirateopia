@@ -13,7 +13,7 @@ public class Player extends GameObject {
     Handler m_handler;
     
     /// Whether the player is in a ship or not
-    boolean inShip = false;
+    boolean inShip = true;
     
     /// Ship container if player isn't riding a ship
     GameObject ship;
@@ -21,6 +21,10 @@ public class Player extends GameObject {
     public Player(int x, int y, ID id, Handler h){
         super(x, y, Game.RATIO/5, Game.RATIO/5, id); 
         this.m_handler = h;
+        
+        /// Add the player starting ship
+        ship = new BasicShip(x, y, Game.RATIO/3, Game.RATIO/2, ID.Ship);
+        m_handler.addObject(ship);
     }
     
     public void tick(){

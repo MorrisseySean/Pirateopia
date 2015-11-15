@@ -35,14 +35,12 @@ public class Game extends Canvas implements Runnable{
         new Window(WIDTH, HEIGHT, "League Of Legends Manager", this);        
         
         ///Add an island
-        currentIsland = new Island(0, 0, ID.Island);
-        handler.addObject(currentIsland);
-        handler.setCurrentIsland(currentIsland);
+        handler.nextIsland(0, 0);       
         
         /// Add a new player to the handler
-        handler.addObject(new Player(WIDTH/2, HEIGHT/2, ID.Player, handler));;
+        handler.addObject(new Player(RATIO, RATIO, ID.Player, handler));;
         
-        handler.addObject(new BasicShip((4 * RATIO) - (RATIO / 3) - 5, (3 * RATIO) - (RATIO/2) - 5, RATIO/3, RATIO/2, ID.Ship));
+        
     }
     
     public synchronized void start(){
