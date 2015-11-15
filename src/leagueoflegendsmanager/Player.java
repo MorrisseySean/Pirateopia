@@ -78,8 +78,24 @@ public class Player extends GameObject {
             y -= velY;
         }        
         
-        x = Game.clamp(x, 0, Game.WIDTH - 60);
-        y = Game.clamp(y, 0, Game.HEIGHT - 60);
+        if(x < -w){
+            m_handler.nextIsland(-1, 0);
+            x = Game.WIDTH - (w * 2);
+        }
+        else if(x > Game.WIDTH - w){
+            m_handler.nextIsland(1, 0);
+            x = 1;
+        }
+        else if(y < -h){
+            m_handler.nextIsland(0, -1);
+            y = Game.HEIGHT - (h * 2);
+        }
+        else if(y > Game.HEIGHT - h){
+            m_handler.nextIsland(0, 1);    
+            y = 1;
+        }
+        
+        
         
         if(ship != null){
             ship.x = x;

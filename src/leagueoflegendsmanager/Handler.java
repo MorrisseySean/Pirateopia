@@ -11,6 +11,7 @@ import java.util.LinkedList;
 public class Handler {
     // A list of all objects in the game
     LinkedList<GameObject> objects = new LinkedList<GameObject>();
+    LinkedList<Island> islands = new LinkedList<Island>();
     Island currentIsland;
     
     // Loops through all game objects and their update method
@@ -51,5 +52,25 @@ public class Handler {
             return null;
         }
         
-    }    
+    }
+    
+    public int nextIsland(int x, int y){
+        /// Get the coordinates of the new island
+        int newX = currentIsland.getXCoord() + x;
+        int newY = currentIsland.getYCoord() + y;
+        
+        /// Check if the island already exists
+        for(int i = 0; i < islands.size(); i++){
+            /// If it does, set as current and leave method
+            if(islands.get(i).getXCoord() == newX && islands.get(i).getYCoord() == newY){
+                currentIsland = islands.get(i);
+                return 1;
+            }
+        }
+        
+        /// Create a new island at the specified coordiantes
+        islands.add(new Island(newX, newY, ID.Island));
+        currentIsland = islands.get(islands.size() - 1);
+        return 0;
+    }
 }

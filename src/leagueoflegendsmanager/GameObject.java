@@ -7,10 +7,6 @@ package leagueoflegendsmanager;
 
 import java.awt.Graphics;
 
-/**
- *
- * @author Morro
- */
 public abstract class GameObject {
     
     protected int x, y, w, h;

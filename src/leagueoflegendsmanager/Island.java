@@ -55,4 +55,21 @@ public class Island extends GameObject{
     public LinkedList<GameObject> getTiles(){
         return tiles;
     }
+    
+    /// Checks if the coordinates are equal to x and y
+    public boolean checkCoords(int x, int y){
+        if(x == xCoord && y == yCoord){
+            return true;
+        }
+        return false;
+    }
+    
+    /// Get methods for coordinate values
+    public int getXCoord(){
+        return xCoord;
+    }
+    public int getYCoord(){
+        return yCoord;
+    }
+    
 }
