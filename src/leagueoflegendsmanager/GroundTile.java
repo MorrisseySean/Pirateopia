@@ -11,7 +11,7 @@ import java.awt.Color;
 public class GroundTile extends GameObject{
     
     public GroundTile(int x, int y, ID id){
-        super(x, y, Game.RATIO, Game.RATIO, id);
+        super(x, y, Game.RATIO * 2, Game.RATIO * 2, id);
     }
     
     public void tick(){
@@ -19,7 +19,7 @@ public class GroundTile extends GameObject{
     
     public void render(Graphics g){
         g.setColor(Color.GREEN);
-        g.fillRect(x, y, w, h);    
+        g.fillRect(x - Game.CAMX, y - Game.CAMY, w, h);    
     }
     
 }

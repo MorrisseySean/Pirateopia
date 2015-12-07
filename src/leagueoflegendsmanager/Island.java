@@ -29,7 +29,7 @@ public class Island extends GameObject{
         for(int i = 0; i < map.length; i++){
             for(int j = 0; j < map[i].length; j++){
                 if(map[i][j] == 1){
-                    tiles.add(new GroundTile(j * Game.RATIO, i * Game.RATIO, ID.Tile));
+                    tiles.add(new GroundTile(j * (Game.RATIO * 2), i * (Game.RATIO * 2), ID.Tile));
                 }
             } /// End inner for loop
         } /// End outer for loop

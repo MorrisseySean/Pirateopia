@@ -17,6 +17,7 @@ import java.util.HashSet;
  */
 public class Game extends Canvas implements Runnable{
     public static final int WIDTH = 1080, HEIGHT = WIDTH /12 * 9, RATIO = WIDTH/12;
+    public static int CAMX = 0, CAMY = 0;
     private Thread mainThread;
     private boolean isRunning = false;
     private Handler handler;
@@ -130,5 +131,17 @@ public class Game extends Canvas implements Runnable{
             return false;
         }
         return true;
-    }    
+    }
+
+    public static boolean checkPointCollision(int x, int y, int x2, int y2, int w2, int h2){
+        System.out.println(x + " " + y);
+        if(x > x2 + w2 ||
+                x < x2 ||
+                y > y2 + h2 ||
+                y < y2){
+            return false;
+        }
+        return true;
+    }
+     
 }

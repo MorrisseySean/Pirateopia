@@ -37,28 +37,35 @@ public class Player extends GameObject {
         /// List through every square on the current island
         for(int i = 0; i < m_handler.getCurrentIsland().getTiles().size(); i++){      
             GameObject curTile = m_handler.getCurrentIsland().getTiles().get(i);
-            /// If the player still collides with a square, change onGround to true
+            /// Get the current width and height of the player based, varying depending on if their in a ship
             int curWidth = w;
             int curHeight = h;
-            if(ship != null){
+            if(ship != null){                
                 curWidth = ship.w;
                 curHeight = ship.h;
             }
-            if(Game.checkBoxCollision(x, y, curWidth, curHeight, curTile.x, curTile.y, curTile.w, curTile.h)){
-                if(inShip == true){
-                    x += (velX / (Game.RATIO / 18)) * ship.w;
-                    y += (velY / (Game.RATIO / 18)) * ship.h;
-                    if(Game.checkBoxCollision(x, y, w, h, curTile.x, curTile.y, curTile.w, curTile.h)){
-                        ship = null;                                        
-                        inShip = false; 
+            
+            /// If the player is in a ship, use box collision to detect collision with terrain
+            if(ship != null){
+                if(Game.checkBoxCollision(ship.x, ship.y, curWidth, curHeight, curTile.x, curTile.y, curTile.w, curTile.h)){
+                    /// On colliding with the terrain, check if the player can stand on the land.
+                    if(inShip == true){
+                        //x = ((curTile.x + (curTile.w / 2)) - (w / 2) * (velX / (Game.RATIO / 16)));
+                        //y = ((curTile.y + (curTile.h / 2)) - (h / 2) * (velY / (Game.RATIO / 16)));
+                        x += (velX / (Game.RATIO / 16)) * curWidth + Game.RATIO / 10;
+                        y += (velY / (Game.RATIO / 16)) * curHeight + Game.RATIO / 10;
+                        if(Game.checkPointCollision(x + (w / 2), y + (h / 2), curTile.x, curTile.y, curTile.w, curTile.h)){
+                            ship = null;                                        
+                            inShip = false; 
+                        }
                     }
-                    else{
-                        x = ship.x;
-                        y = ship.y;                        
-                    }
+                    onPassable = true;
                 }
-                onPassable = true;
-                
+            }
+            else{
+                if(Game.checkPointCollision(x + (w / 2), y + (h / 2), curTile.x, curTile.y, curTile.w, curTile.h)){
+                    onPassable = true;
+                }
             }
         }
         if(ship == null){
@@ -68,10 +75,10 @@ public class Player extends GameObject {
                     GameObject tempShip = m_handler.objects.get(i); 
                     if(Game.checkBoxCollision(x, y, w, h, tempShip.x, tempShip.y, tempShip.w, tempShip.h)){
                         ship = tempShip;
-                        inShip = true;
+                        //inShip = true;
                         onPassable = true;
-                        x = ship.x;
-                        y = ship.y;
+                        x = (ship.x + (ship.w / 2)) - (w / 2);
+                        y = (ship.y + (ship.h / 2)) - (h / 2);
                     }
                 }
             }
@@ -80,21 +87,21 @@ public class Player extends GameObject {
         if(onPassable == false){
             x -= velX;
             y -= velY;
-        }        
+        }
         
         if(x < -w){
             m_handler.nextIsland(-1, 0);
-            x = Game.WIDTH - (w * 2);
+            x = (Game.WIDTH * 2) - (w * 2);
         }
-        else if(x > Game.WIDTH - w){
+        else if(x > (Game.WIDTH * 2) - w){
             m_handler.nextIsland(1, 0);
             x = 1;
         }
         else if(y < -h){
             m_handler.nextIsland(0, -1);
-            y = Game.HEIGHT - (h * 2);
+            y = (Game.HEIGHT * 2) - (h * 2);
         }
-        else if(y > Game.HEIGHT - h){
+        else if(y > (Game.HEIGHT * 2) - h){
             m_handler.nextIsland(0, 1);    
             y = 1;
         }
@@ -102,14 +109,22 @@ public class Player extends GameObject {
         
         
         if(ship != null){
-            ship.x = x;
-            ship.y = y;
+            if(inShip == true){
+                ship.x = (x + w / 2) - ship.w / 2;
+                ship.y = (y + h / 2) - ship.h / 2;
+            }
+            else{
+                inShip = true;
+            }
         }
+        
+        Game.CAMX = this.x - Game.WIDTH / 2;       
+        Game.CAMY = this.y - Game.HEIGHT / 2;
         
     }
     
     public void render(Graphics g){
         g.setColor(Color.RED);
-        g.fillRect(x, y, Game.RATIO / 4, Game.RATIO / 4);
+        g.fillRect(x - Game.CAMX, y - Game.CAMY, Game.RATIO / 4, Game.RATIO / 4);
     }
 }

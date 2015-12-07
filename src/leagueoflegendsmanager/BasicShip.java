@@ -21,7 +21,7 @@ public class BasicShip extends GameObject{
     
     public void render(Graphics g){
         g.setColor(Color.ORANGE);
-        g.fillRect(x, y, w, h);
+        g.fillRect(x - Game.CAMX, y - Game.CAMY, w, h);
     }
     
 }
